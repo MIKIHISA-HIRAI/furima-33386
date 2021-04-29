@@ -1,24 +1,54 @@
-# README
+# テーブル設計
 
-This README would normally document whatever steps are necessary to get the
-application up and running.
+## users テーブル
 
-Things you may want to cover:
+|  Colum     |  Type   | Options     |
+| ---------- | ------- | ----------- |
+|  email     | string  | null: false |
+|  password  | string  | null: false |
+|  nickname  | string  | null: false |
+|  name      | string  | null: false |
+|  kana_name | string  | null: false |
+|  birthday  | string  | null: false |
 
-* Ruby version
+### Association
+- has_many : items
+- has_many : purchase_record
 
-* System dependencies
 
-* Configuration
+## items テーブル 
 
-* Database creation
+|  Colum        |  Type      |  Options    |
+| ------------- | ---------- | ----------- 
+|  product_name | string     | null: false |
+|  category     | string     | null: false |
+|  price        | string     | null: false |
+|  user         | references |             |
 
-* Database initialization
+### Association
+- belongs to : users
+- has_many   : purchase_record
 
-* How to run the test suite
 
-* Services (job queues, cache servers, search engines, etc.)
+## purchase_record テーブル　
+|  Colum           |  Type    |  Options    |
+| ---------------  | -------- | ----------- |
+|  card_number     | string   | null: false |
+|  expiration_date | string   | null: false |
+|  cord_number     | string   | null: false |
 
-* Deployment instructions
+### Association
+- belong to : users
+- belong to : items
+- has-one   : address
 
-* ...
+
+## address テーブル　
+|  Colum           |  Type     |  Options    |
+| ---------------- | --------- | ----------- |
+|  postal_code     | string    | null: false |
+|  address         | string    | null: false |
+|  purchase_record | reference |             |
+
+### Association 
+- belongs to :purchase_record
