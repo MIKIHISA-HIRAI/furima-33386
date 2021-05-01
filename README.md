@@ -4,7 +4,7 @@
 
 |         Colum       |  Type   |   Options    |
 | ------------------- | ------- | ------------ |
-|  email              | string  | unique: true |
+|  email              | string  | null: false, unique: true |
 |  encrypted_password | string  | null: false  |
 |  nickname           | string  | null: false  |
 |  first_name         | string  | null: false  |
@@ -20,31 +20,29 @@
 
 ## items テーブル 
 
-|  Colum           |  Type      |  Options    |
-| ---------------- | ---------- | ----------- |
-|  image           | string     | null: false |
-|  product_name    | string     | null: false |
-|  introduction    | text       | null: false |
-|  condition       | string     | null: false |
-|  category        | string     | null: false |
-|  price           | string     | null: false |
-|  user            | references |             |
-|  delivery_charge | string     | null: false |
-|  area            | string     | null: false |
-|  days            | string     | null: false |
+|        Colum        |  Type      |       Options     |
+| ------------------- | ---------- | ----------------- |
+|  product_name       | string     | null: false       |
+|  introduction       | text       | null: false       |
+|  price              | integer    | null: false       |
+|  user               | references | foreign_key: true |
+|  condition_id       | integer    | null: false       |
+|  delivery_charge_id | integer    | null: false       |
+|  area_id            | integer    | null: false       |
+|  days_id            | integer    | null: false       |
+|  category_id        | integer    | null: false       |
 
 
 ### Association
 - belongs to : user
-- has_many   : purchase_records
+- has_one    : purchase_record
 
 
 ## purchase_record テーブル　
-|  Colum   |  Type      |  Options   |
-| -------- | ---------- | ---------- |
-|  user    | reference  |            |
-|  item    | reference  |            |
-|  address | reference  |            |
+|  Colum   |  Type      |       Options      |
+| -------- | ---------- | ------------------ |
+|  user_id | reference  |  foreign_key: true |
+|  item_id | reference  |  foreign_key: true |
 
 ### Association
 - belong_to : user
@@ -53,11 +51,15 @@
 
 
 ## address テーブル　
-|  Colum           |  Type     |  Options                    |
-| ---------------- | --------- | --------------------------- |
-|  postal_code     | string    | null: false                 |
-|  address         | string    | null: false                 |
-|  purchase_record | reference | foreign_key: true           |
+|  Colum           |  Type     |  Options          |
+| ---------------- | --------- | ----------------- |
+|  postal_code     | string    | null: false       |
+|  prefecture_id  | integer   | null: false       |
+|  municipality_id | string    | null: false       |
+|  address         | string    | null: false       |
+|  building_name   | string    |                   |
+|  phone_number    | integer   | null: false       |
+|  purchase_record | reference | foreign_key: true |
 
 ### Association 
-- belongs to :purchase_record
+- belongs_to :purchase_record
