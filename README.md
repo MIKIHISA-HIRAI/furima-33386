@@ -28,7 +28,7 @@
 |  user               | references | foreign_key: true |
 |  condition_id       | integer    | null: false       |
 |  delivery_charge_id | integer    | null: false       |
-|  area_id            | integer    | null: false       |
+|  prefecture_id      | integer    | null: false       |
 |  delivery_day_id    | integer    | null: false       |
 |  category_id        | integer    | null: false       |
 
