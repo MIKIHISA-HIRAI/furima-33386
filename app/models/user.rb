@@ -15,16 +15,17 @@ class User < ApplicationRecord
 
   validates :password, format: { with: /\A(?=.*?[a-z])(?=.*?[\d])[a-z\d]+\z/i, message: 'Include both letters and numbers' }
   
-  with_options presence: true, format: { with: /\A[ぁ-んァ-ヶ一-龥々ー]+\z/, message: 'Full-width characters'} do
-    validates :first_name
-    validates :family_name
-  end
+  with_options presence: true do
+    with_options presence: true, format: { with: /\A[ぁ-んァ-ヶ一-龥々ー]+\z/, message: 'Full-width characters'} do
+     validates :first_name
+     validates :family_name
+    end
   
-  with_options presence: true, format: { with: /\A[ア-ン一]+\z/, message: 'Full-width katakana characters'} do
-    validates :kana_first_name
-    validates :kana_family_name
+    with_options presence: true, format: { with: /\A[ア-ン一]+\z/, message: 'Full-width katakana characters'} do
+     validates :kana_first_name
+     validates :kana_family_name
+    end
   end
-  
   
   has_many  :items
   has_many  :purchase_records

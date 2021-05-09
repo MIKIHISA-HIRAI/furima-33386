@@ -45,8 +45,12 @@ RSpec.describe User, type: :model do
      end
     
      it 'password:半角英数混合のみ' do
-      @user.password = "12345"
-      @user.password_confirmation = "12345"
+      @user.password = "AAAAAA"
+      @user.password = "111111"
+      @user.password = "aaaaaa"
+      @user.password_confirmation = "AAAAAA"
+      @user.password_confirmation = "111111"
+      @user.password_confirmation = "aaaaaa"
       @user.valid?
       expect(@user.errors.full_messages).to include ('Password Include both letters and numbers')
      end
