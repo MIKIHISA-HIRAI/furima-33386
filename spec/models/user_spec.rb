@@ -46,10 +46,20 @@ RSpec.describe User, type: :model do
     
      it 'password:半角英数混合のみ' do
       @user.password = "AAAAAA"
-      @user.password = "111111"
-      @user.password = "aaaaaa"
       @user.password_confirmation = "AAAAAA"
+      @user.valid?
+      expect(@user.errors.full_messages).to include ('Password Include both letters and numbers')
+     end
+     
+     it 'password:半角英数混合のみ' do
+      @user.password = "111111"
       @user.password_confirmation = "111111"
+      @user.valid?
+      expect(@user.errors.full_messages).to include ('Password Include both letters and numbers')
+     end
+
+     it 'password:半角英数混合のみ' do
+      @user.password = "aaaaaa"
       @user.password_confirmation = "aaaaaa"
       @user.valid?
       expect(@user.errors.full_messages).to include ('Password Include both letters and numbers')
@@ -69,7 +79,13 @@ RSpec.describe User, type: :model do
      end
 
      it "family_nameが全角以外では登録できない" do
-      @user.family_name = 'aA'
+      @user.family_name = 'aa'
+      @user.valid?
+      expect(@user.errors.full_messages).to include ("Family name Full-width characters")
+     end
+
+     it "family_nameが全角以外では登録できない" do
+      @user.family_name = 'AA'
       @user.valid?
       expect(@user.errors.full_messages).to include ("Family name Full-width characters")
      end
@@ -81,7 +97,13 @@ RSpec.describe User, type: :model do
      end
 
      it "first_nameが全角以外では登録できない" do
-      @user.first_name = 'aA'
+      @user.first_name = 'aa'
+      @user.valid?
+      expect(@user.errors.full_messages).to include ("First name Full-width characters")
+     end
+
+     it "first_nameが全角以外では登録できない" do
+      @user.first_name = 'AA'
       @user.valid?
       expect(@user.errors.full_messages).to include ("First name Full-width characters")
      end
@@ -93,7 +115,31 @@ RSpec.describe User, type: :model do
      end
 
      it "kana_family_nameが全角カナでなけれは登録できない" do
-      @user.kana_family_name = 'aaaaa'
+      @user.kana_family_name = 'aa'
+      @user.valid?
+      expect(@user.errors.full_messages).to include ("Kana family name Full-width katakana characters")
+     end
+
+     it "kana_family_nameが全角カナでなけれは登録できない" do
+      @user.kana_family_name = '11'
+      @user.valid?
+      expect(@user.errors.full_messages).to include ("Kana family name Full-width katakana characters")
+     end
+
+     it "kana_family_nameが全角カナでなけれは登録できない" do
+      @user.kana_family_name = 'AA'
+      @user.valid?
+      expect(@user.errors.full_messages).to include ("Kana family name Full-width katakana characters")
+     end
+
+     it "kana_family_nameが全角カナでなけれは登録できない" do
+      @user.kana_family_name = 'あ'
+      @user.valid?
+      expect(@user.errors.full_messages).to include ("Kana family name Full-width katakana characters")
+     end
+
+     it "kana_family_nameが全角カナでなけれは登録できない" do
+      @user.kana_family_name = '山'
       @user.valid?
       expect(@user.errors.full_messages).to include ("Kana family name Full-width katakana characters")
      end
@@ -105,7 +151,31 @@ RSpec.describe User, type: :model do
      end
 
      it "kana_first_nameが全角カナでなけれは登録できない" do
-      @user.kana_first_name = '  '
+      @user.kana_first_name = 'aa'
+      @user.valid?
+      expect(@user.errors.full_messages).to include ("Kana first name Full-width katakana characters")
+     end
+
+     it "kana_first_nameが全角カナでなけれは登録できない" do
+      @user.kana_first_name = '11'
+      @user.valid?
+      expect(@user.errors.full_messages).to include ("Kana first name Full-width katakana characters")
+     end
+
+     it "kana_first_nameが全角カナでなけれは登録できない" do
+      @user.kana_first_name = 'あ'
+      @user.valid?
+      expect(@user.errors.full_messages).to include ("Kana first name Full-width katakana characters")
+     end
+
+     it "kana_first_nameが全角カナでなけれは登録できない" do
+      @user.kana_first_name = 'AA'
+      @user.valid?
+      expect(@user.errors.full_messages).to include ("Kana first name Full-width katakana characters")
+     end
+
+     it "kana_first_nameが全角カナでなけれは登録できない" do
+      @user.kana_first_name = '山'
       @user.valid?
       expect(@user.errors.full_messages).to include ("Kana first name Full-width katakana characters")
      end
